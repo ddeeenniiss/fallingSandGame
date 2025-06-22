@@ -1,6 +1,7 @@
 // fallingSand.js
 import React, { useRef, useEffect, useState } from 'react';
 
+//Startwerte
 const width = 600;
 const height = 600;
 const cellSize = 8;
@@ -10,9 +11,11 @@ const rows = height / cellSize;
 export default function SandCanvas() {
   const canvasRef = useRef();
   const gridRef = useRef(createGrid());
-  const [spacePressed, setSpacePressed] = useState(false); // ✔ einheitlicher Name
-
+  const [spacePressed, setSpacePressed] = useState(false);
+ 
+  //create 2D- Array with filled 0 values
   function createGrid() {
+      //Array mit cols Elementen wird angelegt und mit Nullen gefüllt
     return Array.from({ length: cols }, () => Array(rows).fill(0));
   }
 
@@ -92,7 +95,7 @@ export default function SandCanvas() {
     const x = Math.floor((e.clientX - rect.left) / cellSize);
     const y = Math.floor((e.clientY - rect.top) / cellSize);
 
-    if (x >= 0 && x < cols && y >= 0 && y < rows) {
+    if (x >= 0 && x < cols && y >= 0 && y < rows && gridRef.current[x][y] === 0) {
       gridRef.current[x][y] = (Date.now() / 10) % 360;
     }
   };
